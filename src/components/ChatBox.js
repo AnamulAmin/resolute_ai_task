@@ -40,7 +40,7 @@ function ChatBox({ user, setUser, player }) {
     const userData = JSON.parse(sessionStorage.getItem("userName") || null); // Getting user data from session storage
     setUser(userData); // Setting user data
 
-    const socketInstance = io(
+    const socketInstance = io.connect(
       // "http://localhost:5000"
       "https://resolute-ai-task-server.vercel.app"
     ); // Connecting to socket server
