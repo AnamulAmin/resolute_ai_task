@@ -40,7 +40,8 @@ function ChatBox({ user, setUser, player }) {
     const userData = JSON.parse(sessionStorage.getItem("userName") || null); // Getting user data from session storage
     setUser(userData); // Setting user data
 
-    const socketInstance = io.connect(
+    const socketInstance = io(
+      // "http://localhost:5000"
       "https://resolute-ai-task-server.vercel.app"
     ); // Connecting to socket server
     setSocket(socketInstance); // Setting socket instance
@@ -70,6 +71,10 @@ function ChatBox({ user, setUser, player }) {
     player.currentTime(time); // Setting current time of player
   };
 
+  const handleModal = () => {
+    document.getElementById("my_modal_1").showModal();
+  };
+
   // Rendering the Chat Box component
   return (
     <div className="col-span-1 border shadow-sm rounded-sm h-screen sticky">
@@ -82,15 +87,15 @@ function ChatBox({ user, setUser, player }) {
         </button>
       </header>
       {/* Message Area */}
-      <div className="w-full overflow-auto h-[78%]" id="messageArea">
+      <div className="w-full overflow-auto h-[78%] relative" id="messageArea">
         {!user ? (
           // Button to prompt user to be a participant
-          <button
-            className="btn btn-neutral absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            onClick={() => document.getElementById("my_modal_1").showModal()}
+          <div
+            className="bg-neutral-800 text-white whitespace-nowrap rounded-xl px-6 py-2 cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            onClick={handleModal}
           >
             Be a Participant
-          </button>
+          </div>
         ) : (
           // Rendering conversation messages if user is present
           <div className="w-full">
