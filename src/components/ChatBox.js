@@ -11,9 +11,7 @@ function ChatBox({ user, setUser, player }) {
     const userData = JSON.parse(sessionStorage.getItem("userName")) || null;
     setUser(userData);
 
-    const socketInstance = io("https://resolute-ai-task.vercel.app", {
-      transports: ["websocket"],
-    });
+    const socketInstance = io();
     setSocket(socketInstance);
 
     socketInstance.on("connect", () => {
