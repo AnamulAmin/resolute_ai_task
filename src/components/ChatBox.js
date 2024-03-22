@@ -11,7 +11,7 @@ function ChatBox({ user, setUser, player }) {
     const userData = JSON.parse(sessionStorage.getItem("userName")) || null;
     setUser(userData);
 
-    const socketInstance = io("wss://resolute-ai-task-server.vercel.app", {
+    const socketInstance = io("wss://resolute-ai-task-server.vercel.app/socket.io/?EIO=4&transport=websocket", {
       transports: ["websocket"],
     });
     setSocket(socketInstance);
@@ -24,7 +24,7 @@ function ChatBox({ user, setUser, player }) {
       try {
         const res = await fetch("https://resolute-ai-task-server.vercel.app/get_conversation");
         const conversationData = await res.json();
-        setConversation([...conversation, data]);
+        setConversation(conversationData);
       } catch (error) {
         console.log(error);
       }
